@@ -1,8 +1,20 @@
-import { type Request, type Response } from "express";
+import { type NextFunction, type Request, type Response } from "express";
+import { createError } from "../utils/createError";
 
-export const getUsers = (req: Request, res: Response) => {
+export const getUsers = (req: Request, res: Response, next: NextFunction) => {
   // write code body
-  res.json({ message: "THIS IS GET ALL users" });
+  try {
+    // Check email
+    if (true){
+      createError(400, 'Email already exists!');
+    } else {
+      throw new Error('Password is invalid!');
+    }
+
+    res.json({ message: "THIS IS GET ALL users" });
+  } catch (err) {
+    next(err);
+  }
 };
 
 export const readUser = (req: Request, res: Response) => {
